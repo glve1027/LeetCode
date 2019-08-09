@@ -1,4 +1,3 @@
-//
 //  LeetCode_748_最短完整词_83.33%.swift
 //
 //  Created by Gonghuan on 2019/8/9.
