@@ -1,6 +1,5 @@
 //
 //  LeetCode_748_最短完整词_83.33%.swift
-//  Coding
 //
 //  Created by Gonghuan on 2019/8/9.
 //  Copyright © 2019 Gonghuan. All rights reserved.
