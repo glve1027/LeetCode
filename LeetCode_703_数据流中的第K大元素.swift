@@ -87,3 +87,94 @@ class KthLargest {
         return from
     }
 }
+
+// 最小堆
+class KthLargest {
+    var queue: PriorityQueue
+    var k: Int
+    
+    init(_ k: Int, _ nums: [Int]) {
+        self.queue = PriorityQueue()
+        self.k = k
+        
+        for val in nums {
+            self.queue.enqueue(val)
+        }
+        
+        var temp = nums.count - k
+        while temp > 0 {
+            self.queue.dequeue()
+            temp -= 1
+        }
+    }
+    
+    func add(_ val: Int) -> Int {
+        queue.enqueue(val)
+        if queue.array.count > k {
+            queue.dequeue()
+        }
+        return queue.peek()!
+    }
+}
+
+struct PriorityQueue {
+    var array = [Int]()
+    
+    func peek() -> Int? {
+        return array.first
+    }
+    
+    mutating func enqueue(_ num: Int) {
+        array.append(num)
+        siftUp()
+    }
+    
+    mutating func dequeue() {
+        array.swapAt(0, array.count - 1)
+        array.removeLast()
+        siftDown()
+    }
+    
+    mutating func siftDown() {
+        var pIndex = 0
+        var sLIndex = 0
+        var sRIndex = 0
+        var index = 0
+        
+        while pIndex * 2 + 1 <= array.count - 1  {
+            sLIndex = pIndex * 2 + 1
+            sRIndex = pIndex * 2 + 2
+            index = pIndex
+            
+            if array[pIndex] > array[sLIndex] {
+                index = sLIndex
+            }
+            
+            if sRIndex <= array.count - 1 && array[index] > array[sRIndex] {
+                index = sRIndex
+            }
+            
+            if (pIndex != index) {
+                array.swapAt(pIndex, index)
+                pIndex = index
+            } else {
+                return
+            }
+        }
+    }
+    
+    mutating func siftUp() {
+        var pIndex = 0
+        var sIndex = array.count - 1
+        
+        while sIndex != 0 {
+            pIndex = (sIndex - 1) / 2
+            if (array[sIndex] < array[pIndex]) {
+                array.swapAt(sIndex, pIndex)
+                sIndex = pIndex
+            } else {
+                return
+            }
+        }
+    }
+}
